@@ -4,6 +4,7 @@ services:
     environment:
       - MYSQL_DATABASE=root
       - MYSQL_ROOT_PASSWORD=root
+    hostname: mysql
     command:
       - --table_definition_cache=100
       - --performance_schema=0
@@ -12,7 +13,7 @@ services:
     volumes:
       - ./initdb.d:/docker-entrypoint-initdb.d
       - ./storage/mysql:/var/lib/mysql
-    container_name: mysql1
+    container_name: mysql
     ports:
       - 3306:3306
     image: mysql
@@ -25,6 +26,8 @@ services:
     ports:
       - 3000:3000
     restart: always
+    depends_on:
+      - api
   api:
     container_name: api
     image: python:3.9.4
@@ -36,5 +39,7 @@ services:
       - 5000:5000
     restart: always
     entrypoint: /entrypoint.sh
+    depends_on:
+      - mysql
 volumes:
   databases: {}
