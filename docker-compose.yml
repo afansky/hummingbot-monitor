@@ -28,6 +28,7 @@ services:
     restart: always
     depends_on:
       - api
+      - mysql
   api:
     container_name: api
     image: python:3.9.4
