@@ -21,15 +21,13 @@ def store():
     mycursor = mydb.cursor()
 
     sql = "INSERT INTO bots (name, trades) VALUES (%s, %s)"
-    val = (json.name, json.trades)
+    val = (json['name'], json['trades'])
     mycursor.execute(sql, val)
     mydb.commit()
 
-    return """
-    {
+    return """{
         success: true
-    }
-    """
+    }"""
 
 
 if __name__ == '__main__':
