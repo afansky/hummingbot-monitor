@@ -21,5 +21,10 @@ docker-compose run --rm client
 
 To run client and parse the sqlite db
 ```
-python client.py conf_pure_mm_algo_btc_kucoin.sqlite http://grafana.url bot_name
+python client.py db.sqlite http://grafana.url bot_name
+```
+
+Crontab entry
+```
+*/5 * * * * /bin/python3 /root/client.py db.sqlite http://grafana.url bot_name 
 ```
