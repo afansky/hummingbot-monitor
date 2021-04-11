@@ -42,5 +42,17 @@ services:
     entrypoint: /entrypoint.sh
     depends_on:
       - mysql
+  client:
+    container_name: client
+    image: python:3.9.4
+    volumes:
+      - ./client/:/workspace
+    working_dir: /workspace
+    ports:
+      - 5000:5000
+    restart: always
+    entrypoint: /bin/bash
+    depends_on:
+      - mysql
 volumes:
   databases: {}
