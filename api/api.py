@@ -2,13 +2,6 @@ from flask import Flask
 from flask import request
 import mysql.connector
 
-mydb = mysql.connector.connect(
-    host="mysql",
-    user="root",
-    password="root",
-    database="hummingbot"
-)
-
 app = Flask(__name__)
 
 
@@ -18,12 +11,20 @@ def store():
 
     print("got a request")
 
+    mydb = mysql.connector.connect(
+        host="mysql",
+        user="root",
+        password="root",
+        database="hummingbot"
+    )
+
     mycursor = mydb.cursor()
 
     sql = "INSERT INTO bots (name, trades) VALUES (%s, %s)"
     val = (json['name'], json['trades'])
     mycursor.execute(sql, val)
     mydb.commit()
+    mydb.close()
 
     return """{
         success: true
